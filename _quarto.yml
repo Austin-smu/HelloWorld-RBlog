@@ -5,6 +5,9 @@ website:
   title: "HelloWorld-RBlog"
   navbar:
     left:
+     - href: fda.html
+       text: Financial Data Analytic
+    right:
       - href: index.qmd
         text: Home
       - about.qmd

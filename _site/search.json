@@ -12,5 +12,12 @@
     "title": "About",
     "section": "",
     "text": "In this webpage, I keep all my documents which I’ve learned so far from R Series 1 to 9."
+  },
+  {
+    "objectID": "fda.html",
+    "href": "fda.html",
+    "title": "R Series 6: Financial Data Analysis with R",
+    "section": "",
+    "text": "pacman::p_load(tidyquant, timetk, tidyverse, knitr)\n\n\ncompany &lt;- read_csv(\"data/SGCompany.csv\")\n\n\nStock_daily &lt;- company %&gt;%\n  select(Symbol) %&gt;%\n  tq_get(get = \"stock.prices\", \n         from = \"2020-01-01\", \n         to = \"2023-12-31\") \n\n\nStock_data &lt;- Stock_daily %&gt;%\n  left_join(company)\n\n\nStock_data %&gt;%\n  filter(Name == \"DBS Group\") %&gt;%\n  ggplot(aes(x = date, y = close)) +\n    geom_line() +\n    labs(title = \"DBS Group Holdings Ltd (DBSDF) Daily Stock Price\", \n         y = \"Closing Price\", x = \"\") + \n    theme_tq()\n\n\n\n\n\n\n\n\n\nStock_data %&gt;%\n  group_by(Name) %&gt;%\n  plot_time_series(date, close,\n                   .facet_ncol   = 2,\n                   .facet_scales = \"free\",\n                   .interactive  = FALSE)\n\n\n\n\n\n\n\n\n\nend &lt;- as_date(\"2023-12-31\")\nstart &lt;- end - weeks(4)\nStock_data %&gt;%\n  filter(Name == \"DBS Group\") %&gt;%\n  filter(date &gt;= start - days(2 * 15)) %&gt;%\n  ggplot(aes(x=date, y=close)) +\n  geom_candlestick(aes(open=open,\n                       high=high,\n                       low=low,\n                       close=close)) +\n  labs(title =  \"Daily stock prices of DBS Group\") +\n  coord_x_date(xlim = c(start, end)) + \n  theme_tq()"
   }
 ]
