@@ -49,7 +49,7 @@ Stock_data %>%
   plot_time_series(date, close,
                    .facet_ncol   = 2,
                    .facet_scales = "free",
-                   .interactive  = FALSE)
+                   .interactive  = TRUE)
 ```
 
 ```{r}
